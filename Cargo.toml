@@ -1,0 +1,26 @@
+[package]
+name = "burstjudge"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+license = "MIT"
+description = "Burst ve coklu cekim karelerini TIFF/EXIF IFD ayristirmasi, gomulu JPEG onizleme ve DCT tabanli algisal hash ile gruplayan, hicbir dosyayi tasimayan terminal triyaj araci."
+repository = "https://github.com/SyntaxOrigin/burstjudge"
+readme = "README.md"
+keywords = ["cli", "photography", "tiff", "exif", "burst"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+# serde: grup/kare/puan JSON semasi ve ayar dosyasi icin turetilmis veri yuzleri (src/rapor.rs, src/kurallar.rs, src/puan.rs).
+serde = { version = "1", features = ["derive"] }
+# serde_json: judge raporu yazimi, ayar dosyasi okuma ve `info`/`group` ciktisinin JSON bicimi (src/rapor.rs, src/kurallar.rs, src/main.rs).
+serde_json = "1"
+# clap: group / judge / export / info alt komutlarinin ve bayraklarinin ayristirilmasi (src/main.rs).
+clap = { version = "4", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = "debuginfo"
